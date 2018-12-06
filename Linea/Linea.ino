@@ -40,11 +40,13 @@ void loop() {
    s2=digitalRead(s2_);
    s1=digitalRead(s1_);
 
+  if(true){
+    Moverse(100,100);
+    }
 
    if(s3 == neg){
      Moverse(100,100);
    }
-      
   if(s2 == neg && s1 == neg){
     Moverse(100,-100);
    }
