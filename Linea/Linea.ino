@@ -21,14 +21,16 @@ int s5;
 
 
 int neg = 0;
-int bla = 1;
+int bco = 1 ;
 
 void setup() {
+Serial.begin(9600);  
   pinMode( s1_, INPUT );
   pinMode( s2_, INPUT );
   pinMode( s3_, INPUT );
   pinMode( s4_, INPUT );
   pinMode( s5_, INPUT );
+  
 }
 
 void loop() {
@@ -40,29 +42,33 @@ void loop() {
    s2=digitalRead(s2_);
    s1=digitalRead(s1_);
 
-  if(true){
+  if((s1==bco && s2==bco && s4==bco && s5==bco)){
     Moverse(100,100);
-    }
+      //Serial.println("1");
 
-   if(s3 == neg){
-     Moverse(100,100);
-   }
+   } 
   if(s2 == neg && s1 == neg){
-    Moverse(100,-100);
+     Moverse(100,0);
+       //Serial.println("2");
+
    }
    if(s4 == neg && s5 == neg){
-    Moverse(-100,100);
+    Moverse(0,100);
+    //Serial.println("3");
    }
    if(s2 == neg){
-    Moverse(100,-50);
+    Moverse(100,0);
+    //Serial.println("4");
    }
    if(s4 == neg){
-    Moverse(-50,100);
+    Moverse(0,100);
+    //Serial.println("5");
     }
- 
+ //delay(1000);
 }
    
 int Moverse(int velI, int velD){
   motores.setM1Speed(velI);
   motores.setM2Speed(velD);  
 }
+   
