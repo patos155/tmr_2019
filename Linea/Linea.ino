@@ -73,7 +73,8 @@ void loop() {
   if (l8<=bco){dl8=1;} else {dl8=0;}
 
   //Moverse en linea recta
-  Moverse(80,80);
+  imprimirDatosInf();
+  /*Moverse(80,80);
 
   if(dl3==negro && dl6==negro){
     Moverse(80,80);
@@ -118,7 +119,7 @@ void loop() {
   }
   if(dl7==negro || dl7==negro && dl8==negro){
     Moverse(-125,120);  
-  }
+  }*/
 }
 
 void imprimirDatosInf(){
