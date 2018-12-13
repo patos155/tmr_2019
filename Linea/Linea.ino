@@ -34,7 +34,7 @@ int dl8=0;
 
 
 //valores de blanco y negro
-int bco=450;  //620
+int bco=420;  //620
 int negro=0;  //720
 int blanco = 1;
 
@@ -73,11 +73,11 @@ void loop() {
   if (l8<=bco){dl8=1;} else {dl8=0;}
 
   //Moverse en linea recta
-  imprimirDatosInf();
-  /*Moverse(80,80);
+  //imprimirDatosInf();
+  Moverse(160,140);
 
   if(dl3==negro && dl6==negro){
-    Moverse(80,80);
+    Moverse(160,140);
   }
 
   //Muy desviado a la izquierda
@@ -119,7 +119,7 @@ void loop() {
   }
   if(dl7==negro || dl7==negro && dl8==negro){
     Moverse(-125,120);  
-  }*/
+  }
 }
 
 void imprimirDatosInf(){
@@ -137,6 +137,6 @@ void imprimirDatosInf(){
 
 //Movimiento de los motores
 int Moverse(int velD_, int velI_){
-  motores.setM1Speed((velD_ * -1));
-  motores.setM2Speed((velI_ * -1));
+  motores.setM1Speed((velD_));
+  motores.setM2Speed((velI_));
 }
