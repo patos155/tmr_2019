@@ -32,6 +32,8 @@ int dl6=0;
 int dl7=0;
 int dl8=0;
 
+int velD = 100;
+int velI = 100;
 
 //valores de blanco y negro
 int bco=420;  //620
@@ -74,52 +76,20 @@ void loop() {
 
   //Moverse en linea recta
   //imprimirDatosInf();
-  Moverse(160,140);
-
-  if(dl3==negro && dl6==negro){
-    Moverse(160,140);
+  Moverse(velD, velI);
+  
+  if(dl3 == negro){
+    Moverse(velD, 0);  
   }
-
-  //Muy desviado a la izquierda
-  if(dl8==negro && dl7==negro && dl3==negro){
-    Moverse(-100,100);
+  if(dl6 == negro){
+    Moverse(0, velI);
   }
-
-  //Muy desviado a la derecha
-  if(dl1==negro && dl2==negro && dl6==negro){
-    Moverse(100,-100);
-  }
-
-  //Centrado
-  if(dl8==blanco && dl7==blanco && dl2==blanco && dl1==blanco){
-    Moverse(80,80);
-  }
-
-  //Ligeramente desviado a la izquierda
-  if(dl2==negro && dl8==blanco && dl1==blanco){
-    Moverse(80,0);
-  }
-
-  //Ligeramente desviado a la derecha
-  if(dl7==negro && dl1==blanco && dl5==blanco){
-    Moverse(0,80);
-  }
-
-  //Curvas de 90°
-  if(dl8==negro && dl7==negro && dl6==negro || dl8==negro && dl7==negro && dl6==negro && dl5==negro){
-    Moverse(-130,100);
-  }
-
-  if(dl1==negro && dl2==negro && dl3==negro || dl1==negro && dl2==negro && dl3==negro && dl4==negro){
-    Moverse(100,-130);
-  }
-
-  if(dl2==negro || dl2==negro && dl1==negro){
-    Moverse(100,-120);
-  }
-  if(dl7==negro || dl7==negro && dl8==negro){
-    Moverse(-125,120);  
-  }
+  if(dl3 == negro && dl2 == negro){
+    Moverse(velD + 30 , -120);
+    }
+  if(dl6 == negro && dl7 == negro){
+    Moverse(-120 , velI + 30);
+    }
 }
 
 void imprimirDatosInf(){
