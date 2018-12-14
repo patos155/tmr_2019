@@ -2,6 +2,12 @@
 
 ArduinoMotorShieldR3 motores;   //Declaración de los motores
 
+// Pines del ultrasonico
+int trigPin = 24;//pin trigger disparado se puede usar otro pin digital
+int echoPin = 25; // Pin eco. Se puede usar otro pin digital
+long duration, inches, cm; // Declara variables
+
+
 //localizacion de los pines de los sensores
 //sensor infrarojo
 int izq_1=A15;
@@ -51,6 +57,11 @@ void setup() {
   pinMode(der_6,INPUT);
   pinMode(der_7,INPUT);
   pinMode(der_8,INPUT);
+
+  // sensor ultrasonico
+  pinMode(trigPin, OUTPUT); // Establece pin como salida
+  pinMode(echoPin, INPUT); // Establece pin como entrada
+  digitalWrite(trigPin, LOW); // Pone el pin a un estado logico bajo
   
 }
 
@@ -86,10 +97,16 @@ void loop() {
   }
   if(dl3 == negro && dl2 == negro){
     Moverse(velD + 30 , -120);
-    }
+  }
   if(dl6 == negro && dl7 == negro){
     Moverse(-120 , velI + 30);
-    }
+  }
+  if(ultrasonico() >=10 ){
+    Moverse(-15, 15);
+    delay(10);
+    Moverse(70,70);
+    delay(25);
+  }
 }
 
 void imprimirDatosInf(){
@@ -110,3 +127,19 @@ int Moverse(int velD_, int velI_){
   motores.setM1Speed((velD_));
   motores.setM2Speed((velI_));
 }
+int ultrasonico(){
+// Pulso de 10us para inicial el modulo
+   digitalWrite(trigPin, HIGH);
+   delayMicroseconds(10);
+   digitalWrite(trigPin, LOW);
+   duration = pulseIn(echoPin, HIGH); //Devuelve la longitud del pulso del pin Echo en us
+   // Imprime valores por el puerto serie:
+   // Convierte el tiempo de recepción del eco en distancia:
+   cm = microsecondsToCentimeters(duration);
+   // Imprime valores por el puerto serie:  
+   return cm;
+   }
+   // Calcula la distancia en cm
+  long microsecondsToCentimeters(long microseconds) {
+  return microseconds/58;
+} 
