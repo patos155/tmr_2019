@@ -38,11 +38,11 @@ int dl6=0;
 int dl7=0;
 int dl8=0;
 
-int velD = 100;
-int velI = 100;
+int velD = 120;
+int velI = 120;
 
 //valores de blanco y negro
-int bco=420;  //620
+int bco=520;  //620
 int negro=0;  //720
 int blanco = 1;
 
@@ -101,12 +101,7 @@ void loop() {
   if(dl6 == negro && dl7 == negro){
     Moverse(-120 , velI + 30);
   }
-  if(ultrasonico() >=10 ){
-    Moverse(-15, 15);
-    delay(10);
-    Moverse(70,70);
-    delay(25);
-  }
+
 }
 
 void imprimirDatosInf(){
