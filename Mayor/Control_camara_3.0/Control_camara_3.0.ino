@@ -1,4 +1,6 @@
-#include "RF24.h"
+#include <SPI.h>
+#include <nRF24L01.h>
+#include <RF24.h>
 #include <LiquidCrystal_I2C.h>
 
 RF24 radio(7, 8); // CE, CSN
@@ -13,7 +15,7 @@ struct packageR
   int gas1;
   int gas2;
   int gas3;
-  int gas4;
+//  int gas4;
 };
 
 struct packageE
@@ -31,17 +33,17 @@ PackageE dataE;
 
 int btnI = 6;
 int btnD = 5;
-int ejeX = 0;
-int ejeY = 1;
+int ejeX = A0;
+int ejeY = A1;
 int posX;
 int posY;
-int valY = 0;
+//int valY = 0;
 int com = 0;
 
 //int temp;
 
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   radio.begin();
   radio.openWritingPipe(addresses[1]); // 00002
   radio.openReadingPipe(1, addresses[0]); // 00001
@@ -59,7 +61,8 @@ void loop() {
   posX = analogRead(ejeX);
   posY = analogRead(ejeY);
   dataE.valbtnI = digitalRead(btnI);
-  dataE.valbtnD = digitalRead(btnI);
+  dataE.valbtnD = digitalRead(btnD);
+  
   //Posicion del joystick en el eje X
   if (posX < 600) {
     dataE.valX = 1;
@@ -80,6 +83,10 @@ void loop() {
   if (posY >= 200 && posY <= 600) {
     dataE.valY = 0;
   }
+  Serial.println(dataE.valX);
+  Serial.println(dataE.valY);
+  Serial.println(dataE.valbtnD);
+  Serial.println(dataE.valbtnI);
 
   delay(5);
   radio.stopListening();
@@ -96,7 +103,7 @@ void loop() {
     Serial.println(dataR.gas1);
     Serial.println(dataR.gas2);
     Serial.println(dataR.gas3);
-    Serial.println(dataR.gas4);
+//    Serial.println(dataR.gas4);
 
     if (com == 0) {
       lcd.clear();
@@ -123,6 +130,7 @@ void loop() {
     lcd.print("Gas 3:");
     lcd.print(dataR.gas3);
     //    lcd.print("  ");
+
   } else {
     if (com == 1) {
       lcd.clear();
